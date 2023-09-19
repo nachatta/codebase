@@ -1,0 +1,11 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "enabledManagers": [
+    "terraform"
+  ],
+  "includePaths": [
+    "live/**",
+    "modules/**",
+    "sg-gravt/**"
+  ]
+}

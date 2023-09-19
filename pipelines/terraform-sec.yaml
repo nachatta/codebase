@@ -1,0 +1,22 @@
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+
+jobs:
+- job: GravtSec
+  displayName: Security Check SG-Gravt
+  steps:
+    - checkout: self
+    - template: ./templates/workspace-sec.yml
+      parameters:
+        WorkspacePath: live
+    - template: ./templates/workspace-sec.yml
+      parameters:
+        WorkspacePath: modules
+    - template: ./templates/workspace-sec.yml
+      parameters:
+        WorkspacePath: sg-gravt
+    - template: ./templates/workspace-sec.yml
+      parameters:
+        WorkspacePath: sg-shared-prod

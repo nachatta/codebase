@@ -1,0 +1,27 @@
+parameters:
+  - name: WorkspacePath
+    type: string
+
+steps:
+  - task: TerraformInstaller@0
+    displayName: Install Terraform
+    inputs:
+      terraformVersion: 1.4.6
+
+  - task: Bash@3
+    displayName: Terraform Format Check
+    condition: succeededOrFailed()
+    inputs:
+      targetType: inline
+      workingDirectory: ${{ parameters.WorkspacePath }}
+      script: |
+        terraform fmt -check   
+
+  - task: Bash@3
+    displayName: TFLint
+    condition: succeededOrFailed()
+    inputs:
+      targetType: inline
+      workingDirectory: ${{ parameters.WorkspacePath }}
+      script: |
+        docker run --rm -v $(pwd):/data -t ghcr.io/terraform-linters/tflint-bundle
